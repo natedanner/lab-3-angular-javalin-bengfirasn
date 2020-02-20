@@ -3,6 +3,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { UserListComponent } from './users/user-list.component';
 import { UserProfileComponent } from './users/user-profile.component';
+import { TodoListComponent } from './todos/todo-list.component';
+import { TodoDetailComponent } from './todos/todo-detail.component';
 
 
 const routes: Routes = [
