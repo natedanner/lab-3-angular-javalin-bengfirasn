@@ -8,7 +8,9 @@ import { UserProfileComponent } from './users/user-profile.component';
 const routes: Routes = [
   {path: '', component: HomeComponent},
   {path: 'users', component: UserListComponent},
-  {path: 'users/:id', component: UserProfileComponent}
+  {path: 'users/:id', component: UserProfileComponent},
+  {path: 'todos', component: TodoListComponent},
+  {path: 'todos/:id', component: TodoDetailComponent}
 ];
 
 @NgModule({
