@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { Todo } from './todo';
+import { filter } from 'minimatch';
 
 @Injectable()
 export class TodoService {
@@ -19,7 +20,33 @@ export class TodoService {
         return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
     }
 
-    filterTodos(todos: Todo[], filters): Todo[] {
-        return null;
+    filterTodos(todos: Todo[], filters?: {owner?: string, category?: string, body?: string }): Todo[] {
+        let filteredTodos = todos;
+
+        if (filters.owner) {
+            filters.owner = filters.owner.toLowerCase();
+
+            filteredTodos = filteredTodos.filter(todo => {
+                return todo.owner.toLowerCase().includes(filters.owner);
+            });
+        }
+
+        if (filters.category) {
+            filters.category = filters.category.toLowerCase();
+
+            filteredTodos = filteredTodos.filter(todo => {
+                return todo.category.toLowerCase().includes(filters.category);
+            });
+        }
+
+        if (filters.body) {
+            filters.body = filters.body.toLowerCase();
+
+            filteredTodos = filteredTodos.filter(todo => {
+                return todo.body.toLowerCase().includes(filters.body);
+            });
+        }
+
+        return filteredTodos;
     }
 }
