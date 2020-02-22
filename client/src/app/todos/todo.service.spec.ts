@@ -73,7 +73,7 @@ describe('Todo service', () => {
     });
 
     it('getTodos calls api/todos with filter parameter \'status\'', () => {
-      todoService.getTodos({status: false}).subscribe(
+      todoService.getTodos({status: 'incomplete'}).subscribe(
         todos => expect(todos).toBe(testTodos)
       );
       const req = httpTestingController.expectOne(
@@ -81,7 +81,7 @@ describe('Todo service', () => {
       );
 
       expect(req.request.method).toEqual('GET');
-      expect(req.request.params.get('status').toLowerCase).toEqual('false');
+      expect(req.request.params.get('status')).toEqual('incomplete');
       req.flush(testTodos);
     });
 
