@@ -16,7 +16,7 @@ export class TodoService {
     }
 
     getTodoById(id: string): Observable<Todo> {
-        return null;
+        return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
     }
 
     filterTodos(todos: Todo[], filters): Todo[] {
