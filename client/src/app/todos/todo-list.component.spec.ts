@@ -64,8 +64,8 @@ describe('Todo list', () => {
         expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Jane Doe')).toBe(true);
     });
 
-    it('contains two todos owned by John Smith', () => {
-        expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === 'John Smith').length).toBe(2);
+    it('contains two todos owned by Joe Smith', () => {
+        expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === 'Joe Smith').length).toBe(2);
     });
 
     it('contains a todo with the category \'Groceries\'', () => {
