@@ -19,4 +19,102 @@ import { Todo } from './todo';
 import { TodoListComponent } from './todo-list.component';
 import { TodoService } from './todo.service';
 
+const COMMON_IMPORTS: any[] = [
+    FormsModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatSelectModule,
+    MatOptionModule,
+    MatButtonModule,
+    MatInputModule,
+    MatExpansionModule,
+    MatTooltipModule,
+    MatListModule,
+    MatDividerModule,
+    MatRadioModule,
+    BrowserAnimationsModule,
+    RouterTestingModule,
+  ];
 
+describe('Todo list', () => {
+    let todoList: TodoListComponent;
+    let fixture: ComponentFixture<TodoListComponent>;
+
+    beforeEach(() => {
+      TestBed.configureTestingModule({
+        imports: [COMMON_IMPORTS],
+        declarations: [TodoListComponent],
+        providers: [{ provide: TodoService, useValue: new MockTodoService() }]
+      });
+    });
+
+    beforeEach(async(() => {
+        TestBed.compileComponents().then(() => {
+          fixture = TestBed.createComponent(TodoListComponent);
+          todoList = fixture.componentInstance;
+          fixture.detectChanges();
+        });
+      }));
+
+    it('contains all the todos', () => {
+        expect(todoList.serverFilteredTodos.length).toEqual(4);
+    });
+
+    it('contains a todo owned by Jane Doe', () => {
+        expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Jane Doe')).toBe(true);
+    });
+
+    it('contains two todos owned by John Smith', () => {
+        expect(todoList.serverFilteredTodos.filter((todo: Todo) => todo.owner === 'John Smith').length).toBe(2);
+    });
+
+    it('contains a todo with the category \'Groceries\'', () => {
+        expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.category === 'Groceries')).toBe(true);
+    });
+
+    it('doesn\'t contain a todo owned by Batman', () => {
+        expect(todoList.serverFilteredTodos.some((todo: Todo) => todo.owner === 'Batman')).toBe(false);
+    });
+
+});
+
+describe('Misbehaving Todo List', () => {
+    let todoList: TodoListComponent;
+    let fixture: ComponentFixture<TodoListComponent>;
+
+    let todoServiceStub: {
+      getTodos: () => Observable<Todo[]>;
+      getTodosFiltered: () => Observable<Todo[]>;
+    };
+
+    beforeEach(() => {
+      // stub TodoService for test purposes
+        todoServiceStub = {
+            getTodos: () => new Observable(observer => {
+                observer.error('Error-prone observable');
+            }),
+            getTodosFiltered: () => new Observable(observer => {
+                observer.error('Error-prone observable');
+            })
+        };
+
+        TestBed.configureTestingModule({
+            imports: [COMMON_IMPORTS],
+            declarations: [TodoListComponent],
+            providers: [{ provide: TodoService, useValue: todoServiceStub }]
+        });
+    });
+
+    beforeEach(async(() => {
+        TestBed.compileComponents().then(() => {
+            fixture = TestBed.createComponent(TodoListComponent);
+            todoList = fixture.componentInstance;
+            fixture.detectChanges();
+        });
+    }));
+
+    it('generates an error if we don\'t set up a todo list service', () => {
+        expect(todoList.serverFilteredTodos).toBeUndefined();
+    });
+
+});
