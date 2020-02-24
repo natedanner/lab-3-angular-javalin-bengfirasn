@@ -26,7 +26,7 @@ export class TodoService {
         return this.httpClient.get<Todo>(this.todoUrl + '/' + id);
     }
 
-    filterTodos(todos: Todo[], filters?: {owner?: string, category?: string, body?: string }): Todo[] {
+    filterTodos(todos: Todo[], filters?: {owner?: string, category?: string, body?: string, limit?: number, page?: number}): Todo[] {
         let filteredTodos = todos;
 
         if (filters.owner) {
@@ -51,6 +51,11 @@ export class TodoService {
             filteredTodos = filteredTodos.filter(todo => {
                 return todo.body.toLowerCase().includes(filters.body);
             });
+        }
+
+        if (filters.limit && filters.limit > 0) {
+            let currentPage = filters.page ? filters.page : 1;
+            filteredTodos = filteredTodos.slice(filters.limit * (currentPage - 1), filters.limit * currentPage);
         }
 
         return filteredTodos;
