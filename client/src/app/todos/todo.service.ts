@@ -12,7 +12,7 @@ export class TodoService {
     constructor(private httpClient: HttpClient) {
     }
 
-    getTodos(filters?: { status?: string }): Observable<Todo[]> {
+    getTodos(filters?: { status?: string, orderBy?: string }): Observable<Todo[]> {
         let httpParams: HttpParams = new HttpParams();
         if (filters && filters.status) {
           httpParams = httpParams.set('status', filters.status);

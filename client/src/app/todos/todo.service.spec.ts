@@ -83,6 +83,36 @@ describe('Todo service', () => {
       req.flush(testTodos);
     });
 
+    it('getTodos calls api/todos with filter parameter \'orderBy\'', () => {
+      todoService.getTodos({orderBy: 'owner'}).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('orderBy')
+      );
+
+      expect(req.request.method).toEqual('GET');
+      expect(req.request.params.get('orderBy')).toEqual('owner');
+      req.flush(testTodos);
+    });
+
+    it('getTodos calls api/todos wtih multiple parameters', () => {
+      todoService.getTodos({orderBy: 'category', status: 'complete'}).subscribe(
+        todos => expect(todos).toBe(testTodos)
+      );
+
+      const req = httpTestingController.expectOne(
+        (request) => request.url.startsWith(todoService.todoUrl) && request.params.has('orderBy')
+        && request.params.has(status)
+      );
+
+      expect(req.request.method).toEqual('GET');
+      expect(req.request.params.get('orderBy')).toEqual('category');
+      expect(req.request.params.get('status')).toEqual('complete');
+      req.flush(testTodos);
+
+    });
+
     it('getTodoByID() calls api/todos/id', () => {
       const targetTodo: Todo = testTodos[1];
       const targetId: string = targetTodo._id;
