@@ -135,4 +135,34 @@ describe('Todo list', () => {
 
         expect(page.getTodoListItems().count()).toBe(25);
     });
+
+    it('should sort by category', () => {
+        page.selectMatSelectValue('sort-type', 'category');
+
+        page.getTodoListItems().map(e => e.element(by.className('category'))).then(ls => {
+            expect(TodoPage.isSorted(ls)).toBe(true);
+        });
+    });
+
+    it('should sort by different values in sequence', () => {
+        page.selectMatSelectValue('sort-type', 'status');
+
+        page.getTodoListItems().map(e => e.element(by.className('status'))).then(ls => {
+            expect(TodoPage.isSorted(ls)).toBe(true);
+        });
+
+        page.selectMatSelectValue('sort-type', 'owner');
+
+        page.getTodoListItems().map(e => e.element(by.className('owner'))).then(ls => {
+            expect(TodoPage.isSorted(ls)).toBe(true);
+        });
+
+        page.selectMatSelectValue('sort-type', 'body');
+
+        page.getTodoListItems().map(e => e.element(by.className('body'))).then(ls => {
+            expect(TodoPage.isSorted(ls)).toBe(true);
+        });
+    })
 });
+
+

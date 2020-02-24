@@ -8,6 +8,18 @@
 
                 <div fxLayout="row wrap" fxLayoutGap="10px">
                     <mat-form-field class="input-field">
+                        <mat-label>Ordering:</mat-label>
+                        <mat-select [(ngModel)]="orderBy" id="sort-type"
+                        (input)="getTodosFromServer()">
+                            <mat-option value="">Default</mat-option>
+                            <mat-option value="owner">Owner</mat-option>
+                            <mat-option value="body">Body</mat-option>
+                            <mat-option value="category">Category</mat-option>
+                            <mat-option value="status">Status</mat-option>
+
+                        </mat-select>
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
                         <mat-label>Owner</mat-label>
                         <input matInput id="owner-input" placeholder="Filter by owner" [(ngModel)]="todoOwner"
                             (input)="updateFilter()">

@@ -16,6 +16,7 @@ export class TodoListComponent implements OnInit {
     public todoOwner: string;
     public todoCategory: string;
     public todoBody: string;
+    public orderBy = '';
 
 
     constructor(private todoService: TodoService) {

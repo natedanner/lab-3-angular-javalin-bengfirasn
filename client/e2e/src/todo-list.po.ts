@@ -1,6 +1,16 @@
 import {browser, by, element, Key, ElementFinder} from 'protractor';
 
 export class TodoPage {
+
+    static isSorted(toCheck: any[]): boolean {
+        return toCheck.every((ele, loc) => {
+            if (loc === 0) {
+                return true;
+            } else {
+                return toCheck[loc - 1] <= ele;
+            }
+        });
+    }
     navigateTo() {
         return browser.get('/todos');
     }
