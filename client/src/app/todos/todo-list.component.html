@@ -22,6 +22,10 @@
                         <input matInput id="body-input" placeholder="Filter by body of todo" [(ngModel)]="todoBody"
                             (input)="updateFilter()">
                     </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Limit Results Shown</mat-label>
+                        <input matInput id="limit-input" [(ngModel)]="limitDisplayed" (input)="updateFilter()">
+                    </mat-form-field>
                     <mat-radio-group aria-label="Filter by status" id="status-buttons" (change)="getTodosFromServer()"
                         [(ngModel)]="todoStatus">
                         <mat-radio-button value="complete" id="complete-button">Complete</mat-radio-button>

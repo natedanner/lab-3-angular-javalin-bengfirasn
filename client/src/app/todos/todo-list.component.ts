@@ -12,10 +12,12 @@ export class TodoListComponent implements OnInit {
     public serverFilteredTodos: Todo[];
     public filteredTodos: Todo[];
 
-    public todoStatus: string = '';
+    public todoStatus = '';
     public todoOwner: string;
     public todoCategory: string;
     public todoBody: string;
+    public limitDisplayed: number;
+    public pageNum = 1;
 
 
     constructor(private todoService: TodoService) {
@@ -35,7 +37,7 @@ export class TodoListComponent implements OnInit {
 
     public updateFilter() {
       this.filteredTodos = this.todoService.filterTodos(
-        this.serverFilteredTodos, {category: this.todoCategory, body: this.todoBody, owner: this.todoOwner});
+        this.serverFilteredTodos, {category: this.todoCategory, body: this.todoBody, owner: this.todoOwner, page: this.pageNum});
     }
 
     ngOnInit(): void {

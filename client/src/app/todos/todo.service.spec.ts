@@ -127,4 +127,9 @@ describe('Todo service', () => {
       const todoCategory = 'Groceries';
       expect(todoService.filterTodos(testTodos, { owner: todoOwner, category: todoCategory }).length).toBe(0);
     });
+
+    it('filterTodos() limits results shown', () => {
+      expect(testTodos.length).toBe(4);
+      expect(todoService.filterTodos(testTodos, {limit: 3}).length).toBe(3);
+    });
   });
