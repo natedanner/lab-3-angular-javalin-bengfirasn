@@ -18,6 +18,7 @@ export class TodoListComponent implements OnInit {
     public todoBody: string;
     public limitDisplayed: number;
     public pageNum = 1;
+    public orderBy = '';
 
 
     constructor(private todoService: TodoService) {
