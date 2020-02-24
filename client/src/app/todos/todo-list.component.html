@@ -1,12 +1,12 @@
 <div fsLayout="row">
-    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+    <div fxFlex fxFlex.gt-sm="15" fxFlexOffset.gt-sm="0">
         <mat-card class="search-card">
             <mat-card-header>
                 <mat-card-title class='todo-list-title'>Todos</mat-card-title>
             </mat-card-header>
             <mat-card-content fxLayout='column'>
 
-                <div fxLayout="row wrap" fxLayoutGap="10px">
+                <div fxLayout="column wrap" fxLayoutGap="10px">
                     <mat-form-field class="input-field">
                         <mat-label>Owner</mat-label>
                         <input matInput id="owner-input" placeholder="Filter by owner" [(ngModel)]="todoOwner"
@@ -24,15 +24,19 @@
                     </mat-form-field>
                     <mat-radio-group aria-label="Filter by status" id="status-buttons" (change)="getTodosFromServer()"
                         [(ngModel)]="todoStatus">
+
                         <mat-radio-button value="complete" id="complete-button">Complete</mat-radio-button>
+                        <br />
+                        <br />
                         <mat-radio-button value="incomplete" id="incomplete-button">Incomplete</mat-radio-button>
+                        <br />
+                        <br />
                         <mat-radio-button value="" id="no-filter-button" checked>No Filter</mat-radio-button>
                     </mat-radio-group>
                 </div>
             </mat-card-content>
         </mat-card>
     </div>
-
 
     <div fxLayout="row">
         <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else usersError">
