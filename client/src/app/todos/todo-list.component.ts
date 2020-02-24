@@ -12,7 +12,7 @@ export class TodoListComponent implements OnInit {
     public serverFilteredTodos: Todo[];
     public filteredTodos: Todo[];
 
-    public todoStatus = '';
+    public todoStatus: string;
     public todoOwner: string;
     public todoCategory: string;
     public todoBody: string;
@@ -24,7 +24,7 @@ export class TodoListComponent implements OnInit {
 
     getTodosFromServer() {
       this.todoService.getTodos(
-        status ? {status: this.todoStatus} : {}
+        {status: this.todoStatus}
         ).subscribe(returnedTodos => {
         this.serverFilteredTodos = returnedTodos;
         this.updateFilter();
