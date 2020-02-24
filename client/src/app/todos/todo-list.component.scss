@@ -1,0 +1,10 @@
+.mat-radio-button {
+    margin: 0 12px;
+}
+
+.todo-nav-list>todo-list-body {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 60%
+}

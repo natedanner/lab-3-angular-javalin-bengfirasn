@@ -3,8 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
-import { stat } from 'fs';
-import { UserService } from '../users/user.service';
 
 describe('Todo service', () => {
     const testTodos: Todo[] = [
