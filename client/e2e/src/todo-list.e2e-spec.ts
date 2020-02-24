@@ -1,5 +1,5 @@
 import { TodoPage } from './todo-list.po';
-import {browser, protractor, by, element} from 'protractor';
+import {browser, protractor, by, Key, element} from 'protractor';
 
 
 describe('Todo list', () => {
@@ -84,12 +84,10 @@ describe('Todo list', () => {
 
     it('Should behave appropriately when the contents of a box is changed', () => {
         page.typeInput('owner-input', 'Fry');
-        page.backspace();
-        page.backspace();
-        page.backspace();
+        page.typeInput('owner-input', Key.BACK_SPACE.repeat(3));
 
         // Make sure that after the search box is empty, it is no longer filtering on anything
-        let owners = page.getTodoListItems().map(e => e.element(by.className('owner')).getText());
+        let owners = page.getTodoListItems().map(e => e.element(by.className('todo-list-owner')).getText());
         expect(owners).toContain('Fry');
         expect(owners).toContain('Blanche');
 

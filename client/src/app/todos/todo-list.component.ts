@@ -12,7 +12,7 @@ export class TodoListComponent implements OnInit {
     public serverFilteredTodos: Todo[];
     public filteredTodos: Todo[];
 
-    public todoStatus: string;
+    public todoStatus: string = '';
     public todoOwner: string;
     public todoCategory: string;
     public todoBody: string;
