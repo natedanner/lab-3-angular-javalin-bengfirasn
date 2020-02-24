@@ -1,0 +1,80 @@
+<div fsLayout="row">
+    <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10">
+        <mat-card class="search-card">
+            <mat-card-header>
+                <mat-card-title class='todo-list-title'>Todos</mat-card-title>
+            </mat-card-header>
+            <mat-card-content fxLayout='column'>
+
+                <div fxLayout="row wrap" fxLayoutGap="10px">
+                    <mat-form-field class="input-field">
+                        <mat-label>Owner</mat-label>
+                        <input matInput id="owner-input" placeholder="Filter by owner" [(ngModel)]="todoOwner"
+                            (input)="updateFilter()">
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Category</mat-label>
+                        <input matInput id="category-input" placeholder="Filter by todo category"
+                            [(ngModel)]="todoCategory" (input)="updateFilter()">
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Body Text</mat-label>
+                        <input matInput id="body-input" placeholder="Filter by body of todo" [(ngModel)]="todoBody"
+                            (input)="updateFilter()">
+                    </mat-form-field>
+                    <mat-form-field class="input-field">
+                        <mat-label>Limit Results Shown</mat-label>
+                        <input matInput id="limit-input" [(ngModel)]="limitDisplayed" type="number" 
+                        (input)="updateFilter()">
+                    </mat-form-field>
+                    <mat-radio-group aria-label="Filter by status" id="status-buttons" (change)="getTodosFromServer()"
+                        [(ngModel)]="todoStatus">
+                        <mat-radio-button value="complete" id="complete-button">Complete</mat-radio-button>
+                        <mat-radio-button value="incomplete" id="incomplete-button">Incomplete</mat-radio-button>
+                        <mat-radio-button value="" id="no-filter-button" checked>No Filter</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-form-field class="input-field">
+                        <mat-label>Page</mat-label>
+                        <input matInput id="page-select" [(ngModel)]="pageNum"  type="number"
+                        (input)="updateFilter()" min="1" readonly={{limitDisplayed}}>
+                    </mat-form-field>
+                </div>
+            </mat-card-content>
+        </mat-card>
+    </div>
+
+
+    <div fxLayout="row">
+        <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" *ngIf="serverFilteredTodos; else usersError">
+
+            <mat-card>
+                <mat-card-content>
+                    <mat-nav-list class="todo-nav-list">
+                        <h3 mat-subheader>Todos</h3>
+                        <a mat-list-item *ngFor="let todo of this.filteredTodos" [routerLink]="['/todos', todo._id]"
+                            class="todo-list-item">
+                            <p matLine class="todo-list-owner"> {{todo.owner}} </p>
+                            <p matline class="todo-list-body"> {{todo.body}} </p>
+                            <p matLine class="todo-list-category"> {{todo.category}} </p>
+                            <p matLine class="todo-list-status"> {{todo.status ? 'complete' : 'incomplete'}} </p>
+                        </a>
+                    </mat-nav-list>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+    </div>
+
+    <ng-template #usersError>
+        <div fxFlex fxFlex.gt-sm="80" fxFlexOffset.gt-sm="10" class="user-error">
+            <mat-error>
+                There was a problem loading the users. Possibly the server is down or perhaps there are network
+                issues.
+            </mat-error>
+            <mat-error>
+                Please wait a bit and try again or start the server.
+            </mat-error>
+        </div>
+    </ng-template>
+
+</div>

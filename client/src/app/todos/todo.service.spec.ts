@@ -3,8 +3,6 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 import { TestBed } from '@angular/core/testing';
 import { Todo } from './todo';
 import { TodoService } from './todo.service';
-import { stat } from 'fs';
-import { UserService } from '../users/user.service';
 
 describe('Todo service', () => {
     const testTodos: Todo[] = [
@@ -128,5 +126,10 @@ describe('Todo service', () => {
       const todoOwner = 'Jane';
       const todoCategory = 'Groceries';
       expect(todoService.filterTodos(testTodos, { owner: todoOwner, category: todoCategory }).length).toBe(0);
+    });
+
+    it('filterTodos() limits results shown', () => {
+      expect(testTodos.length).toBe(4);
+      expect(todoService.filterTodos(testTodos, {limit: 3}).length).toBe(3);
     });
   });
