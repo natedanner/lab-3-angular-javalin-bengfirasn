@@ -101,21 +101,21 @@ describe('Todo list', () => {
     it('Should behave appropriately when the status selection is changed', () => {
         element(by.id('status-buttons')).all(by.id('incomplete-button')).get(0).click();
 
-        let statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText());
+        let statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText()).then(x => x);
         expect(statuses).not.toContain('complete');
         expect(statuses).toContain('incomplete');
         // Select a radio button and make sure that it correctly filters.
 
         element(by.id('status-buttons')).all(by.id('complete-button')).get(0).click();
 
-        statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText());
+        statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText()).then(x => x);
         expect(statuses).not.toContain('incomplete');
         expect(statuses).toContain('complete');
         // Change the filter and make sure that it filters only by the new rule.
 
         element(by.id('status-buttons')).all(by.id('no-filter-button')).get(0).click();
 
-        statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText());
+        statuses = page.getTodoListItems().map(e => e.element(by.className('todo-list-status')).getText()).then(x => x);
         expect(statuses).toContain('complete');
         expect(statuses).toContain('incomplete');
         // Make sure that the rule no longer applies.
