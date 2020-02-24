@@ -22,7 +22,7 @@ describe('TodoDetailComponent', () => {
       declarations: [TodoDetailComponent],
       providers: [
         { provide: TodoService, useValue: new MockTodoService() },
-        { provide: ActivatedRoute, useValue: ActivatedRoute }
+        { provide: ActivatedRoute, useValue: activatedRoute }
       ]
     })
     .compileComponents();

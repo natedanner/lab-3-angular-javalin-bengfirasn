@@ -7,8 +7,7 @@ import { TodoService } from './todo.service';
 @Component({
     selector: 'app-todo-detail-component',
     templateUrl: 'todo-detail.component.html',
-    styleUrls: ['./todo-detail.component.scss'],
-    providers: []
+    styleUrls: ['./todo-detail.component.scss']
 })
 export class TodoDetailComponent implements OnInit {
     constructor(private route: ActivatedRoute, private todoService: TodoService) { }
